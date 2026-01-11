@@ -11,5 +11,10 @@ config_version=5
 [application]
 
 config/name="Familiar TD"
+run/main_scene="uid://dmob1l3828xs1"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://icon.svg"
+
+[autoload]
+
+Globals="*res://Globals.gd"

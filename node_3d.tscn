@@ -1,0 +1,43 @@
+[gd_scene load_steps=8 format=3 uid="uid://dmob1l3828xs1"]
+
+[ext_resource type="PackedScene" uid="uid://cykg6qo84sqi5" path="res://PewPew Test.blend" id="1_r3fl7"]
+[ext_resource type="Script" uid="uid://w801vr3ftgqo" path="res://turret.gd" id="2_a0tk4"]
+[ext_resource type="PackedScene" uid="uid://co33358yidq46" path="res://Bad.blend" id="3_a0tk4"]
+[ext_resource type="Script" uid="uid://bxr3woo8c0gj7" path="res://bad.gd" id="4_r3fl7"]
+
+[sub_resource type="Environment" id="Environment_noarx"]
+background_mode = 1
+background_color = Color(0.36157545, 0.36157548, 0.36157548, 1)
+
+[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_a0tk4"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_r3fl7"]
+radius = 0.86
+
+[node name="Node3D" type="Node3D"]
+
+[node name="PewPew Test" parent="." instance=ExtResource("1_r3fl7")]
+script = ExtResource("2_a0tk4")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(-4.2344556e-08, -0.24811508, 0.96873057, -1.0845454e-08, 0.96873057, 0.24811508, -1, 0, -4.371139e-08, 6.3613153, 5.550239, 0.14899993)
+fov = 64.68749
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_noarx")
+camera_attributes = SubResource("CameraAttributesPractical_a0tk4")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.2101617, -0.65412927, 0.7265997, -0.8924835, 0.17504725, 0.41573018, -0.39913046, -0.7358488, -0.5470112, 7.7497644, 7.7871933, 0)
+
+[node name="Area3D" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.6550612, 1.268054, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("SphereShape3D_r3fl7")
+
+[node name="Bad" type="CharacterBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -37.31354, -3.8146973e-06, 17.344864)
+script = ExtResource("4_r3fl7")
+
+[node name="BadMesh" parent="Bad" instance=ExtResource("3_a0tk4")]
