@@ -1,0 +1,11 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://dvaenagv35egx"]
+
+[ext_resource type="Shader" uid="uid://cvw8ddtjpcu88" path="res://Shaders/bubble.gdshader" id="1_076ia"]
+
+[resource]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("1_076ia")
+shader_parameter/shield_str = 1.0
+shader_parameter/ting = 0.0
+shader_parameter/color = Color(0, 0.9843137, 0, 1)
