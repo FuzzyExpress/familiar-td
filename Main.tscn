@@ -1,0 +1,122 @@
+[gd_scene load_steps=16 format=3 uid="uid://dmob1l3828xs1"]
+
+[ext_resource type="Script" uid="uid://ckdimhdrbya82" path="res://Scripts/Main.gd" id="1_fos0i"]
+[ext_resource type="Shader" uid="uid://ds0eckfrp438n" path="res://Shaders/Holograph.gdshader" id="2_3dxm6"]
+[ext_resource type="PackedScene" uid="uid://bvp63yaf8mdc7" path="res://Objects/Scout.glb" id="3_lgr22"]
+[ext_resource type="PackedScene" uid="uid://c1enewdr8rwd2" path="res://Objects/Ship.glb" id="4_trn2v"]
+[ext_resource type="PackedScene" uid="uid://cs670a6hnwocm" path="res://Objects/Laser Turret.glb" id="5_03owx"]
+[ext_resource type="PackedScene" uid="uid://4qexva8bbo4" path="res://Scenes/MainGUI.tscn" id="6_3dxm6"]
+
+[sub_resource type="Environment" id="Environment_noarx"]
+background_mode = 1
+background_color = Color(0.36157545, 0.36157548, 0.36157548, 1)
+
+[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_a0tk4"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wc5p8"]
+render_priority = 0
+shader = ExtResource("2_3dxm6")
+shader_parameter/color = Vector4(1, 0.175, 0, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_jka67"]
+material = SubResource("ShaderMaterial_wc5p8")
+radius = 0.4
+height = 0.8
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_i5arm"]
+render_priority = 0
+shader = ExtResource("2_3dxm6")
+shader_parameter/color = Vector4(0, 0.3, 1, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_wc5p8"]
+material = SubResource("ShaderMaterial_i5arm")
+
+[sub_resource type="GDScript" id="GDScript_i5arm"]
+script/source = "extends MeshInstance3D
+
+var pastPositions : Array[Vector3]
+var velocity : Vector3 = Vector3(0, 0, 0)
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(_delta: float) -> void:
+	
+	var loc = Vector3(0, 0, 0)
+	
+	for each in pastPositions:
+		loc += each
+	
+	if not pastPositions.is_empty():
+		velocity = global_position - loc / pastPositions.size()
+		velocity *= 10
+	
+	pastPositions.append( self.global_position )
+	if pastPositions.size() > 6:
+		pastPositions.pop_front()
+	
+	
+"
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_r3fl7"]
+size = Vector3(494.9873, 0.005, 593.385)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_i5arm"]
+size = Vector3(3.5427246, 1, 2.8115234)
+
+[node name="Node" type="Node"]
+
+[node name="MainGUI" parent="." instance=ExtResource("6_3dxm6")]
+visible = false
+
+[node name="Main3D" type="Node3D" parent="."]
+script = ExtResource("1_fos0i")
+
+[node name="CursorCast3D" type="RayCast3D" parent="Main3D"]
+collision_mask = 524288
+collide_with_areas = true
+collide_with_bodies = false
+debug_shape_thickness = 1
+
+[node name="Camera3D" type="Camera3D" parent="Main3D"]
+transform = Transform3D(-2.4246674e-08, -0.8320509, 0.5546992, -3.6370103e-08, 0.5546992, 0.8320509, -1, 0, -4.371139e-08, 5.100607, 11.654522, 0.14899993)
+fov = 64.68749
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Main3D"]
+environment = SubResource("Environment_noarx")
+camera_attributes = SubResource("CameraAttributesPractical_a0tk4")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Main3D/WorldEnvironment"]
+transform = Transform3D(0.21016173, -0.65412927, 0.72659963, -0.8924836, 0.17504722, 0.4157302, -0.39913052, -0.7358488, -0.5470114, 7.7497644, 7.7871933, 0)
+
+[node name="Target3D" type="MeshInstance3D" parent="Main3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.466035, 0, 9.806286)
+mesh = SubResource("SphereMesh_jka67")
+skeleton = NodePath("../Tracker3D")
+
+[node name="Tracker3D" type="MeshInstance3D" parent="Main3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8855996, 0, -2.3456557)
+mesh = SubResource("SphereMesh_wc5p8")
+script = SubResource("GDScript_i5arm")
+
+[node name="Floor" type="Area3D" parent="Main3D"]
+collision_layer = 524288
+collision_mask = 524288
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Main3D/Floor"]
+shape = SubResource("BoxShape3D_r3fl7")
+debug_color = Color(0, 0, 0, 0.0627451)
+
+[node name="Scout2" parent="Main3D" instance=ExtResource("3_lgr22")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.6483355, -0.07529664, 14.612896)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Main3D/Scout2"]
+shape = SubResource("BoxShape3D_i5arm")
+
+[node name="Ship" parent="Main3D" instance=ExtResource("4_trn2v")]
+transform = Transform3D(0.71233237, 0, 0.7018423, 0, 1, 0, -0.7018423, 0, 0.71233237, 3.0461729, 0, -6.716498)
+
+[node name="Laser Turret" parent="Main3D/Ship" instance=ExtResource("5_03owx")]

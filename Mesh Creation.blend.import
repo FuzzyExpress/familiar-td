@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://co33358yidq46"
-path="res://.godot/imported/Bad.blend-d0cac45ed0a7b852b1b41d825ee8dfc6.scn"
+uid="uid://cqd8n77si26uw"
+path="res://.godot/imported/Mesh Creation.blend-e25247dfb2437c2662feffe2d2f32530.scn"
 
 [deps]
 
-source_file="res://Bad.blend"
-dest_files=["res://.godot/imported/Bad.blend-d0cac45ed0a7b852b1b41d825ee8dfc6.scn"]
+source_file="res://Mesh Creation.blend"
+dest_files=["res://.godot/imported/Mesh Creation.blend-e25247dfb2437c2662feffe2d2f32530.scn"]
 
 [params]
 
@@ -37,20 +37,7 @@ import_script/path=""
 materials/extract=0
 materials/extract_format=0
 materials/extract_path=""
-_subresources={
-"materials": {
-"Material": {
-"use_external/enabled": true,
-"use_external/fallback_path": "res://Materials/Shield Bubble.tres",
-"use_external/path": "uid://dvaenagv35egx"
-},
-"Material.003": {
-"use_external/enabled": true,
-"use_external/fallback_path": "res://Materials/Ship Frame.tres",
-"use_external/path": "uid://davv5tla1cpxd"
-}
-}
-}
+_subresources={}
 blender/nodes/visible=0
 blender/nodes/active_collection_only=false
 blender/nodes/punctual_lights=true

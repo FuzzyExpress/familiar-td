@@ -10,6 +10,8 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(_delta: float) -> void:
 	
+	
+	
 	var mouse_position = get_viewport().get_mouse_position()
 
 	pointer.global_position = $Camera3D.project_ray_origin(mouse_position)

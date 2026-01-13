@@ -1,18 +1,18 @@
 shader_type spatial;
 render_mode unshaded, cull_disabled; // , world_vertex_coords;
 
-uniform float shield_str : hint_range(0., 1.) = 1;
-uniform float ting : hint_range(0., 1.) = 1;
-uniform vec3 color : source_color = vec3(0.0, 1., 0.4);
+instance uniform float shield_str : hint_range(0., 1.) = 1;
+instance uniform float ting : hint_range(0., 1.) = 0;
+instance uniform vec3 color : source_color = vec3(0.0, 1., 0.4);
 
 #include "res://Shaders/Shield.gdshaderinc"
 
-void vertex() {
-	// Called for every vertex the material is visible on.
-}
+//void vertex() {
+	//// Called for every vertex the material is visible on.
+//}
 
 void fragment() {
-	if ( FRONT_FACING ) {
+	if ( ! FRONT_FACING ) {
 		ALBEDO = mix( color, vec3(1.), ting * .5 );
 		ALPHA  = ( shield_str * (ting*5. + 1.) );
 	} else {

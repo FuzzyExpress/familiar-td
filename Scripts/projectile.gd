@@ -1,11 +1,24 @@
-extends Node3D
+extends CharacterBody3D
 
+
+var speed := 50.0
+var origin : Vector3
+var gravity := 0.0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+	pass
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	self.translate_object_local(Vector3(0, 0, -20 * delta))
+func _physics_process(delta: float) -> void:
+	# This will make it move forward
+	velocity = -global_transform.basis.z * speed * delta
+
+	velocity.y += gravity * delta
+	var collision:KinematicCollision3D = move_and_collide(velocity)
+	if collision:
+		queue_free()
+		var c = collision.get_collider()
+		if c.has_method('_hit'):
+			c._hit()

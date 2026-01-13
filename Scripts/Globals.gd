@@ -1,5 +1,7 @@
 extends Node
 
+# https://gist.github.com/laundmo/b224b1f4c8ef6ca5fe47e132c8deab56
+
 func lerp(a: float, b: float, t: float) -> float:
 	"""Linear interpolate on the scale given by a to b, using t as the point on that scale.
 	Examples
@@ -31,6 +33,7 @@ func remap(i_min: float, i_max: float, o_min: float, o_max: float, v: float) -> 
 	"""
 	return lerp(o_min, o_max, inv_lerp(i_min, i_max, v))
 
+# https://github.com/nealholt/TargetLeadExample/blob/main/Scripts/gun.gd
 func get_intercept(shooter_pos:Vector3,
 					bullet_speed:float,
 					target_position:Vector3,
@@ -45,6 +48,7 @@ func get_intercept(shooter_pos:Vector3,
 		time = (b+sqrt(b*b+4*a*c)) / (2*a)
 	return target_position+time*target_velocity
 
+# https://easings.net/
 func EaseIOCubic(x: float) -> float:
 	"""Cubic easing in/out - acceleration until halfway, then deceleration.
 	Examples

@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://cwfxqdhyr65ge"]
+
+[ext_resource type="Script" uid="uid://bw1j7c1rgn73f" path="res://Scripts/projectile.gd" id="1_i71nh"]
+[ext_resource type="PackedScene" uid="uid://bkqsht2stp6s3" path="res://Objects/LT Projectile.glb" id="2_xgh6w"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_17iqx"]
+radius = 0.28758574
+
+[node name="CharacterBody3D" type="CharacterBody3D"]
+script = ExtResource("1_i71nh")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_17iqx")
+
+[node name="Projectile3D" type="Node3D" parent="."]
+
+[node name="LT Projectile" parent="Projectile3D" instance=ExtResource("2_xgh6w")]
